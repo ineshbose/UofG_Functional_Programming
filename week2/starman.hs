@@ -12,6 +12,7 @@ turn word display n =
               then putStrLn "You win!"
               else mkguess word display n
 
+mkguess :: String -> String -> Int -> IO ()
 mkguess word display n =
   do putStrLn (display ++ "  " ++ take n (repeat '*'))
      putStr "  Enter your guess: "

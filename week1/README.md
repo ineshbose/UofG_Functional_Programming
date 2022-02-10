@@ -1234,8 +1234,79 @@ Resources for new Haskell programmers
 
 ### Recommended Reading
 ```
+0:08
+JEREMY: Simon, you’ve got a big pile of books there. Haskell textbooks, to be precise. Would you like to give us some recommendations?
+
+0:14
+SIMON: Yeah I’ve got four here I was going to recommend. First is ‘Real World Haskell’. This was long-awaitedd. Actually it’s been out a while. It’s been out nearly 10 years. I guess they’re probably about to do the second edition. Came out in 2008. So it’s a brief introduction, somewhat, but they inquire a lot about using Haskell in practice so I think this is the one that the developers will often pick up. It’s for experienced programmers. In a similar way, but it says A Beginner’s Guide is ‘Learn You a Haskell’. An advantage of this is that it’s available free, online. And because it’s more recent, will talk about, in detail, about things like monads, monoids.
+
+0:59
+I suppose all the books talk about monads, but this goes into more detail about some of the more mathematical end of things. Graham Hutton’s book– one of the advantages is that this is nice and thin. So you’ll get it in 160 odd pages. I know Graham’s writing another edition of this. So by the time– this should be out early 2017, I would guess. So that’s about 10 years after this came out. But a good basic introduction. And I’ll conclude with mine.
+
+1:29
+JEREMY: [LAUGHS]
+
+1:30
+SIMON: Let’s have a shameless plug just for mine. I wrote the first edition of this around the late 90s.
+
+1:35
+JEREMY: What’s your book called?
+
+1:37
+SIMON: It’s called ‘Haskell: The Craft of Functional Programming’.
+
+1:42
+This edition is from 2011. I guess I will start thinking about doing another edition. It’s grown. It’s quite thick. I might try and take some material out of the new edition. But I think covers things in quite a lot of depth, quite a lot of examples that you can work through in there. But all of them have a different take so buy them all.
+
+2:03
+JEREMY: [LAUGHS] Thanks.
 ```
+
+**Jeremy visited Simon Thompson at the University of Kent to find out about Haskell textbooks. Simon has a huge collection of programming language books.**
+
+#### Book Recommendations
+
+Simon mentions four textbooks in the video interview. Below are links to the websites for each book.
+
+##### Real World Haskell
+
+[Real World Haskell](http://book.realworldhaskell.org/) is a typical O’Reilly programming language book. The content is available [online for free](http://book.realworldhaskell.org/read/), along with reader comments.
+
+##### Learn You a Haskell
+
+[Learn You a Haskell](http://learnyouahaskell.com/) is a very informal introduction, but it does a great job of explaining complex concepts. You can [read it online](http://learnyouahaskell.com/chapters) for free. Some people [don’t like](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=9049494&fileId=S095679681300004X) the author’s sense of humour, but I thought it was mostly ok.
+
+##### Programming in Haskell
+
+Simon mentioned that Graham Hutton is bringing out a 2nd edition of his textbook. Since the interview, [Programming in Haskell](http://www.cambridge.org/9781316626221) has been released. We highly recommend it as a simple and succinct introduction to Haskell programming.
+
+Publishers Cambridge University Press have kindly set up a discount code that will allow FutureLearn Haskell learners to get 25% off the price of the new edition of _Programming in Haskell_ if they purchase from the [CUP website](http://www.cambridge.org/9781316626221). The discount code is **PIHMOOC** and this is simply entered in the _Subtotal and Discount Code_ section when checking out to get 25% off. This works on both the UK and USA sites from the publisher.
+
+##### Haskell: the Craft of Functional Programming
+
+Simon was slightly coy about [his own textbook](http://www.haskellcraft.com/craft3e/Home.html) in the interview. However we have found it very helpful while we were preparing this course. There are lots of copies of this book in Glasgow University library, so presumably our students find it helpful too!
+
+#### Other Resources
+
+[Haskell Programming from First Principles](http://haskellbook.com/) is a great textbook and increasingly popular in the Haskell community. Christopher Allen and Julie Moronuki are talented teachers of Haskell to novices. The book is content complete and will soon have the final and fully edited release, but you can purchase access to the ebook now. You get immediate access to the latest ‘version’ and updates as the book grows.
+
+#### Online Help
+
+We hope you find this course to be well-supported, in terms of the learning materials and the interactive comments. We have a team of tutors to support the learning community.
+
+Other online sites also provide advice to Haskell beginners. For instance, the [Haskell Cafe](https://mail.haskell.org/mailman/listinfo/haskell-cafe) mailing list is a friendly place to post queries. There are also sub-reddits like [haskellquestions](https://www.reddit.com/r/haskellquestions).
 
 ### Spot the Difference
 
+**You have spent some time this week exploring the Haskell language. Have you found Haskell to be different from other programming languages you have used?**
+
+- How is Haskell different?
+- Would you say that the ‘Haskell approach’ is better or worse than the other languages you know?
+
 ### End of Week 1
+```
+0:13
+Hey! We’re at the end of the first week of our functional programming course. I hope you’ve enjoyed yourself. This week, we’ve looked at basic expressions and functions. We’ve studied a model of evaluation called reduction. And we’ve also introduced the list data type. If you’re a Haskell novice, please tell us what you found to be particularly interesting or challenging this week in the comments section below. Hope to see you back again next week. Thanks. Bye!
+```
+
+**That’s the end of the first week. We hope you have enjoyed your first steps in Haskell programming.**
