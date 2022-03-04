@@ -537,8 +537,191 @@ Haskell started life as an academic project. However it is now widely used in co
 
 ### Haskell at Facebook
 ```
+0:07
+JEREMY: Katie, thank you for inviting me to Facebook to meet you and–
+
+0:11
+KATIE: You’re welcome.
+
+0:12
+JEREMY: –to see the sights of London. It’s great being here. I want you to tell me a little bit, please, about how you got into Haskell programming, where you found out about it, and why you like it so much.
+
+0:23
+KATIE: OK. So I learned about Haskell from a professor at my university. Like most universities, we have that one professor who’s really crazy about it.
+
+0:32
+JEREMY: Oh, right. Good.
+
+0:33
+KATIE: But unlike most people, I didn’t learn about it in official classes. The classes that included Haskell were unfortunately cut from the curriculum.
+
+0:40
+JEREMY: Oh, how sad.
+
+0:41
+KATIE: And this professor– very, very sad. This professor was so passionate, he offered to teach interested students in the library in his own time. So we had little secret sessions in the library to learn about functional programming and also logic programming. So he taught about a bit of Scheme, a bit of Prolog, and also some Haskell, and that’s how I was first exposed to it.
+
+1:00
+JEREMY: Wow, the secret functional society. That’s good, isn’t it? Haskell is used quite extensively at Facebook, isn’t it? Can you tell us a little bit about how you use Haskell in your day-to-day software development?
+
+1:13
+KATIE: Yes. I work on a system called Sigma, which is basically a rules engine for catching bad things on the site, things like spam, for example. And it’s a C++ Haskell hybrid, but it runs rules that are written in Haskell in EDSL, embedded domain-specific language, called Haxl, which is open source so people can check that out.
+
+1:36
+JEREMY: How do you spell Haxl? Sorry.
+
+1:37
+KATIE: It’s H-A-X-L.
+
+1:38
+JEREMY: OK. We’ll google it.
+
+1:40
+KATIE: Haxl.
+
+1:40
+JEREMY: Cool.
+
+1:41
+KATIE: And this system runs more than a million queries a second to fight badness on the site. So Haskell is being used in the real world in production to help make Facebook a nicer place.
+
+1:55
+JEREMY: And there are lots of people using Haskell at Facebook.
+
+1:58
+KATIE: Yeah, not just me. We have dozens of people here who are writing these rules in Haskell and also people that are working on this project, of course, as well.
+
+2:09
+JEREMY: Can you tell us a little bit about the Commercial Users of Functional Programming Conference? You’re involved with that, I think, and that’s something that showcases functional programming in what you might call the real world, I suppose.
+
+2:23
+KATIE: Yes. And it’s been going for quite a number of years now, I think over a decade. So this is run as part of ICFP, the International Conference on Functional Programming, and I’ve been co-chairing it for this year and the previous year. And we’ve got some great talks coming up, so if anyone wants to head to Japan.
+
+2:43
+JEREMY: A nice holiday. A nice functional holiday in Japan. Very good. OK.
+
+2:47
+KATIE: But it’s at the stage now where it’s no longer a niche thing. I think when CUFP started it was people just finding camaraderie in other people having the frustrating experience of trying to get FP into their workplace and trying to make it work and convince their employers. I think we’re well past that now.
+
+3:06
+JEREMY: So kind of the battle is almost half won, you’re saying already.
+
+3:10
+KATIE: Well, certainly there are lots of big companies like Facebook that people can point to to say, well, why can’t we use it at my company? Facebook’s using it. And there are other big names. So a lot of that battle is won now. And the event has changed focus as a result of that.
+
+3:26
+JEREMY: On our course, Katie, we’re learning about monads. We’ve looked at Maybe and the IO monad so far. I’d like you to try and convince that monads aren’t scary.
+
+3:39
+KATIE: Oh, OK. So why do people even think monads are scary, right? Maybe, firstly, because that have an unfamiliar name– monad. People probably haven’t heard that word before, sure. And also because there’s this bit of a cottage industry of writing monad tutorials on the internet, and people think, oh, if it needs all these tutorials, it must be hard. Not true, not true at all. All monads are are basically a pattern. It’s the simplest way of explaining what it is.
+
+4:03
+JEREMY: OK.
+
+4:04
+KATIE: Monads are useful, because we believe in the DRY principle as good programmers– Don’t Repeat Yourself. And monads are simply a way of not repeating yourself. It happens to be that there are many quite disparate things actually, as disparate as Maybe and IO and Lists and a number of other things–
+
+4:23
+JEREMY: But we’ll come to that next week.
+
+4:25
+KATIE: –yes, yes– that fit a particular pattern. And that means that you can write code once for all the things that fit that pattern and not repeat yourself. And that’s basically it in a nutshell. And monad, of course, is only one of these abstractions that we have in Haskell. There are many others too.
+
+4:38
+JEREMY: OK.
+
+4:39
+KATIE: And they’re useful. And that’s it. That’s really all there is to it.
+
+4:42
+JEREMY: I feel slightly reassured then. Thank you. OK.
+
+4:44
+KATIE: Glad I could be of service.
+
+4:46
+JEREMY: We’re going to go into a lot more detail next week. But you’ve got a great video about monads as superheroes online. Can you ever give us a two-minute pitch of that, and we’ll post a YouTube link on our website below.
+
+4:58
+KATIE: OK, sure. First, I should clarify when I say monads are superheroes, I’m not trying to add another analogy–
+
+5:03
+JEREMY: Oh, right.
+
+5:04
+KATIE: –to all the analogies you already see out there about monads, because I believe it’s better to go from the concrete and see lots of examples and then build up your own intuition of what the abstraction means. So you’re not going to know what monads are just by hearing that they’re like superheroes. But in the talk, I basically just talk about what the key aspects of a monad are. So monads are basically– there’s a type class. I understand you’ve already taught that.
+
+5:29
+JEREMY: Yes.
+
+5:29
+KATIE: So you can say this.
+
+5:30
+JEREMY: Yes.
+
+5:30
+KATIE: A type class that has two– there’s another way to define it with three– but two or three key functions on it. And it needs to follow some laws, the way that you implement this. That’s really the crux of it.
+
+5:42
+JEREMY: OK. More next week.
+
+5:43
+KATIE: Yes, sure. I’m sure you’ll go into all the details.
+
+5:46
+JEREMY: We will, yes, excruciatingly. Thank you. Good. If someone on our course came along and said, right, will functional programming make me more employable? What would you say?
+
+6:02
+KATIE: This is a good question. I think that a lot of employers out there are starting to twig to the fact that people who are interested enough in programming to learn something that’s not the mainstream paradigm like functional programming tend to be good-quality programmers. So I think, in general, it serves you well to have those skills as part of your toolset. There aren’t as many purely functional programming jobs out there as there are other jobs, for sure, but they do exist. And it seems that their numbers are growing. So, yeah, I think it’s definitely a benefit to have those skills.
+
+6:37
+Most importantly, though, I think it’s great to learn functional programming just to learn how to think in a different way about problems.
+
+6:43
+JEREMY: Yeah. Good. We’ve been trying to emphasize that on our course. Thinking functionally is a good skill to have, even if you don’t use functional languages. Katie, tell us about the big gong that’s next to you. What’s this for?
+
+6:55
+KATIE: So this is a tradition here, that when you ship something, you get to come and hit the gong so the whole office can hear that something’s been shipped.
+
+7:03
+JEREMY: It’s quite loud.
+
+7:04
+KATIE: It is. Do you want me to demonstrate?
+
+7:08
+JEREMY: Well, why don’t we ship our interview, and you can whack the gong to tell everyone we’ve done it.
+
+7:13
+KATIE: All right. I don’t know how I’m going to explain this one, but sure.
 ```
+
+**Jeremy recently visited Facebook’s London office, where he met Katie Ots. She is a software engineer at Facebook, developing Haskell code for real-world applications.**
+
+Katie explained how and why Haskell is used at Facebook. She is also well-known for her talk on _superhero monads_. We will explore monads in more detail next week, but you might also want to check out her talk before then.
+
+- [Superhero monads on youtube](https://youtu.be/MlZCiiKGbb0)
+- [Slides for Katie’s talk](http://monads.codemiller.com/#/)
 
 ### Haskell in the Wild
 
-### Course Feedback
+**Functional programming (particularly Haskell) is used by a growing number of companies today, including some large multinationals.**
+
+#### Companies that use Haskell
+
+There are lists of companies that use Haskell on [the Haskell web site](https://wiki.haskell.org/Haskell_in_industry) and on [Quora](https://www.quora.com/Where-is-Haskell-used-in-industry-today-2015). A few highlights are Facebook, IBM, Twitter, AT&T, Bank of America, Barclays Capital, NVIDIA and Microsoft.
+
+Some interesting links are:
+
+- Facebook uses Haskell in several projects, for example [Fighting spam with Haskell](https://code.facebook.com/posts/745068642270222/fighting-spam-with-haskell/).
+- [Galois](https://galois.com/) has been an active Haskell user and promoter for over a decade. [This talk](https://www.scribd.com/document/45049621/Building-a-business-with-Haskell-Case-Studies-Cryptol-HaLVM-and-Copilot) introduces three case studies from some of their projects.
+- The New York Times has a nice talk about [Haskell in the newsroom](https://www.infoq.com/presentations/haskell-newsroom-nyt).
+- [Running a Startup on Haskell](https://www.infoq.com/presentations/Running-a-Startup-on-Haskell).
+
+#### Companies that use functional programming languages other than Haskell
+
+- Twitter uses [Scala](http://www.scala-lang.org/), an FP with Java syntax running on the JVM. [How and why Twitter uses Scala](https://www.redfin.com/blog/2010/05/how_and_why_twitter_uses_scala.html).
+- Walmart uses [Clojure](http://clojure.org/), a dialect of the Lisp programming language. [Walmart runs Clojure at scale](http://blog.cognitect.com/blog/2015/6/30/walmart-runs-clojure-at-scale).
+- Bloomberg uses [OCaml](https://ocaml.org/), an object-oriented version of the ML programming language. [OCaml at Bloomberg](http://cufp.org/2014/maxime-ransan-adopting-functional-programming-with-ocaml-at-bloomberg-lp.html).
+- SocialText uses [LiveScript](http://livescript.net/), a functional language with many similarities to Haskell, which compiles to JavaScript. [Read about their experiences](http://www.aosabook.org/en/posa/from-socialcalc-to-ethercalc.html).
