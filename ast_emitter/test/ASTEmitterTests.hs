@@ -13,7 +13,7 @@ import ASTEmitter (
   ppExprTup,
   ppFSig,
   ppArgDecl,
-  ppStencilDef   
+  ppStencilDef
   )
 import ASTParser (
   parseBindings,
@@ -29,7 +29,7 @@ main = hspec spec
 spec :: Spec
 spec = do
   describe ("\n"++replicate 40 '=' ++"\n" ++ "Provided AST Instance tests ") $ testInstances astInstances
-  
+
 testInstances = mapM_ testInstance
 
 testInstance astInstance_ = let
@@ -44,4 +44,4 @@ testInstance astInstance_ = let
         describe "Fun decl pretty-printer tests" $
           mapM_ (\fd -> it (ppFSig fd)  (parseFunDecl (ppFSig fd) `shouldBe` fd)) functionSignaturesList
         describe "Main bindings pretty-printer test" $ mapM_ (\n ->
-          (\aln -> it (ppAST aln !! (n-1)) (parseBindings (ppBindings aln) (instanceState astInstance_) `shouldBe` aln) ) (take n ast)) [1 .. length ast]      
+          (\aln -> it (ppAST aln !! (n-1)) (parseBindings (ppBindings aln) (instanceState astInstance_) `shouldBe` aln) ) (take n ast)) [1 .. length ast]

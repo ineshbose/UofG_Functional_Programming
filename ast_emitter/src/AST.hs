@@ -1,7 +1,7 @@
-{- 
-Complete the Expr datatype 
-You only have to complete the four lines with "..." (lines 68 .. 71). 
-Leave everything else as it is. 
+{-
+Complete the Expr datatype
+You only have to complete the four lines with "..." (lines 68 .. 71).
+Leave everything else as it is.
 -}
 
 {-# LANGUAGE DeriveDataTypeable #-}
@@ -65,10 +65,10 @@ data Expr =
                     | FVec [(Offset,Size)] Expr -- This is for non-map args FIXME! bounds i.o range
                     | Function Name [Expr] -- 2nd arg is list of non-map/fold args
         -- Higher-order types: add the types for zipt, unzipt, map and stencil
-                    | ... -- zipt
-                    | ... -- unzipt
-                    | ... -- map f v
-                    | ... -- stencil s v
+                    | ZipT [Expr] -- zipt
+                    | UnzipT Expr -- unzipt
+                    | Map Expr Expr -- map f v
+                    | Stencil Expr Expr -- stencil s v
                         deriving (Show, Read, Ord, Data, Typeable)
 
 instance Eq Expr where
@@ -85,7 +85,7 @@ instance Eq Expr where
   (==) (Stencil s1 v1) (Stencil s2 v2) = (s1 == s2) && (v1 == v2)
   (==) _ _ = False
 
-listEq l1 l2 
+listEq l1 l2
   | length l1 /= length l2 = False
   | otherwise =  foldl' (&&) True (map (uncurry (==)) (zip l1 l2))
 

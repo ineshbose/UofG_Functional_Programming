@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{%
+    Functional Programming (H)\\
+    AST Pretty Printer
+}
+\author{Inesh Bose}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Design}
+
+It is understood that all the data type syntax relies on \texttt{Expr}. In order to allow the program to compile, first the higher-order types \texttt{zipt}, \texttt{unzipt}, \texttt{map}, and \texttt{stencil} will be added referring to the provided example:
+
+\begin{verbatim}
+    map :: (a -> b) -> Vec k a -> Vec k b
+    zipt :: (Vec k a,Vec k b,...) -> Vec k (a,b,...)
+    unzipt :: Vec k (a,b,...) -> (Vec k a,Vec k b,...)
+    stencil :: SVec sk Int -> Vec k a -> Vec k (SVec sk a))
+\end{verbatim}
+
+\noindent The pretty-printer for an AST instance can then be created using:
+
+\begin{itemize}
+    \item the given pre-defined functions \texttt{ppProgram}, \texttt{ppBindings}, \texttt{ppAST}, \texttt{ppExprTup}, \texttt{ppDType}, \texttt{ppMainTypeDecl}, \texttt{ppMainArgDef}, and \texttt{ppMainReturnDef};
+    \item define \texttt{ppStencilDef} and \texttt{ppArgDecl} using \texttt{show} (for list of \texttt{Integer}) and \texttt{ppDType} (for \texttt{DType}) respectively ideally in one line;
+    \item \texttt{ppFSig} may require a helper function with guards to evaluate \texttt{Expr};
+    \item finally, \texttt{ppLHSExpr} and \texttt{ppRHSExpr} that are used for all let-bindings in the main function will be similar to the previous functions, taking advantage of \texttt{ppDType} and \texttt{ppArgName}.
+\end{itemize}
+
+\noindent Majority of the development will be driven through the given examples in \texttt{ASTInstances.hs}. Additional tests would be planned to be written.
+
+\end{document}

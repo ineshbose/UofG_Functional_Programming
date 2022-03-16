@@ -1,12 +1,12 @@
-{- 
+{-
 Implement the following functions:
- 
-    ppStencilDef, 
+
+    ppStencilDef,
     ppArgDecl,
-    ppFSig, 
-    ppLHSExpr, 
-    ppRHSExpr 
-    
+    ppFSig,
+    ppLHSExpr,
+    ppRHSExpr
+
 Leave everything else as it is.
 -}
 module ASTEmitter (
@@ -19,7 +19,7 @@ module ASTEmitter (
     ppStencilDef ,
     ppMainTypeDecl ,
     ppMainArgDef ,
-    ppMainReturnDef     
+    ppMainReturnDef
 ) where
 
 import AST
@@ -64,20 +64,42 @@ ppBindings :: AST -> String
 ppBindings = unlines . ppAST
 
 ppAST :: AST -> [String]
-ppAST = map ppExprTup 
+ppAST = map ppExprTup
 
 ppExprTup :: (Expr, Expr) -> String
 ppExprTup (lhs,rhs) = ppLHSExpr lhs ++ " = " ++ ppRHSExpr rhs
 
-ppLHSExpr  :: Expr -> String
-ppLHSExpr = show
+ppLHSExpr :: Expr -> String
+ppLHSExpr (Scalar _  _ name) = name
+ppLHSExpr (Tuple exprs) = "(" ++ intercalate "," (map ppLHSExpr exprs) ++ ")"
+ppLHSExpr (Vec _ expr) = ppLHSExpr expr
+ppLHSExpr (SVec _ expr) = ppLHSExpr expr
 
 ppRHSExpr :: Expr -> String
-ppRHSExpr = show
+ppRHSExpr (Scalar _ _ name) = name
+ppRHSExpr (Vec _ expr) = ppRHSExpr expr
+ppRHSExpr (SVec _ expr) = ppRHSExpr expr
+ppRHSExpr (FVec _ expr) = ppRHSExpr expr
+ppRHSExpr (Function name []) = name
+ppRHSExpr (Function name args) = name ++ " (" ++ intercalate "," (map ppRHSExpr args) ++ ")"
+ppRHSExpr (ZipT exprs) = "zipt (" ++ intercalate "," (map ppRHSExpr exprs) ++ ")"
+ppRHSExpr (UnzipT expr) = "unzipt (" ++ ppRHSExpr expr ++ ")"
+ppRHSExpr (Map (Function fname []) (ZipT exprs)) = "map " ++ fname ++ " (" ++ ppRHSExpr (ZipT exprs) ++ ")"
+ppRHSExpr (Map (Function fname []) args) = "map " ++ fname ++ " " ++ ppRHSExpr args
+ppRHSExpr (Map function (ZipT exprs)) = "map (" ++ ppRHSExpr function  ++ ") (" ++ ppRHSExpr (ZipT exprs) ++ ")"
+ppRHSExpr (Map function args) = "map (" ++ ppRHSExpr function  ++ ") " ++ ppRHSExpr args
+ppRHSExpr (Stencil firstExpr secondExpr) = "stencil " ++ ppRHSExpr firstExpr ++ " " ++ ppRHSExpr secondExpr
 
 -- Pretty-printer for the function signatures
 ppFSig :: FunctionSignature -> String
-ppFSig = show 
+ppFSig (fname, args) = fname ++ " :: " ++ intercalate " -> " (filter (/= "()") (map ppFArg args))
+
+-- Pretty-printer for a function argument
+ppFArg :: Expr -> String
+ppFArg (Scalar _ dt _) = ppDType dt
+ppFArg (FVec bounds expr) = "FVec " ++ show bounds ++ ppFArg expr
+ppFArg (SVec size expr) = "SVec " ++ show size ++ ppFArg expr
+ppFArg (Tuple exprs) = "(" ++ intercalate "," (map ppFArg exprs) ++ ")"
 
 -- Pretty-printer for the argument data types
 ppDType :: DType -> String
@@ -91,13 +113,16 @@ ppDType (DFVec dims dt) = "FVec "++ show dims ++" "++ ppDType dt
 ppDType (DTuple dts) = "("++  intercalate ", " (map ppDType dts) ++")"
 ppDType DDC = show DDC
 
+-- Pretty-printer for the argument declarations
 ppArgDecl :: (String, DType) -> String
-ppArgDecl = show
+ppArgDecl (argName,argType) = argName ++ " :: " ++ ppDType argType
 
+-- Pretty-printer for the argument declaration types
 ppArgDeclType :: (String, DType) -> String
 ppArgDeclType (_,argType) = ppDType argType
 
-ppArgName  :: (String, DType) -> String
+-- Pretty-printer for the argument names
+ppArgName :: (String, DType) -> String
 ppArgName (argName,_) = argName
 
 ppArgs pp argDecls

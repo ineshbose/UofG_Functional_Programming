@@ -24,7 +24,7 @@ dependencies:
 - extra
 - split
 - parsec
-- containers 
+- containers
 - syb
 
 library:

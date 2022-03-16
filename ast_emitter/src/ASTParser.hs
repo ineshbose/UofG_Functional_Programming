@@ -17,7 +17,7 @@ import AST
 
 import qualified Data.Map.Strict as Map (lookup, insert)
 
-import Data.List (foldl', intercalate) 
+import Data.List (foldl', intercalate)
 import Data.Generics (Data, Typeable, mkQ, mkT, everything, everywhere)
 
 import Text.ParserCombinators.Parsec.Prim (getState, setState, runParser, GenParser)
@@ -273,12 +273,18 @@ f_no_nonmap_args = do
     fname <- identifier
     return $ Function fname []
 --
+f_w_nonmap_arg = do
+    fname <- identifier
+    non_map_arg <- identifier
+    return $ Function fname (map mkFVecExpr [non_map_arg])
+
 f_w_nonmap_args = do
     fname <- identifier
     non_map_args <- parens (commaSep1 identifier)
     return $ Function fname (map mkFVecExpr non_map_args)
 
-function_parser =  f_no_nonmap_args <|> parens f_w_nonmap_args
+-- Function parser parses f | (f dx1) | (f (dx1,...))
+function_parser =  f_no_nonmap_args <|> try (parens f_w_nonmap_arg) <|> parens f_w_nonmap_args
 
 mkFVecExpr fv_n = FVec [] (Scalar VDC DDC fv_n) -- note that these could be bare scalars so lookup needs to test that
 
@@ -320,7 +326,7 @@ update_missing_info_rhs' state expr = case expr of
     Scalar {} -> expr
     _ -> expr
 
-lookup_fvec_info state sname = let 
+lookup_fvec_info state sname = let
         fv = variables state ! sname
         (DFVec btups dt,ve) = fv
     in
@@ -347,7 +353,7 @@ addContextInfo :: (Expr,Expr) -> ASTInstanceState -> ((Expr,Expr),ASTInstanceSta
 addContextInfo contextFreeExprTup state = let
         (lhsExpr,rhsExpr) = contextFreeExprTup
         ((lhsExpr',_),state') = case lhsExpr of
-            -- If it is a vector name, it can be a stencil vector and will have been marked VS:        
+            -- If it is a vector name, it can be a stencil vector and will have been marked VS:
             Vec VS (SVec _ (Scalar _ _ svname )) -> find_stencil_def_info contextFreeExprTup state
             -- If it is not a stencil, then we have
             Vec _ (Scalar _ _ vname) -> find_vecs_info (Tuple [lhsExpr],rhsExpr) state
@@ -363,7 +369,7 @@ The LHS is either a vector name or a tuple of vector names
 * If it is a vector name, it can be a stencil vector and will have been marked VS:
     Vec VS (SVec 0 (Scalar VDC DDC lhs ))
     Stencil (SVec 0 (Scalar VDC DInt (fst rhs))) (Vec VI (Scalar VDC DDC (snd rhs)))
-So what we need to find is the DType and the size. 
+So what we need to find is the DType and the size.
 The size is from the stencil name s
 The type is the same type as the vector v
 We need to update bindings with new VSs
@@ -372,7 +378,7 @@ find_stencil_def_info (lhsExpr,rhsExpr) state = let
         Vec VS (SVec ssz (Scalar _ _ svname )) = lhsExpr
         Stencil (SVec _ (Scalar _ DInt s)) (Vec _ (Scalar _ _ vname)) = rhsExpr
         ssz' = stencils state ! s
-        (DVec vsz dt,ve) = variables state ! vname --  (DType,VE) so DVec sz dt => Vec ve (Scalar VDC dt vname) 
+        (DVec vsz dt,ve) = variables state ! vname --  (DType,VE) so DVec sz dt => Vec ve (Scalar VDC dt vname)
         v = Vec ve (Scalar VDC dt vname)
         lhsExpr' = Vec VS (SVec ssz' (Scalar VDC dt svname ))
         rhsExpr' = Stencil (SVec ssz' (Scalar VDC DInt s)) v
@@ -389,11 +395,11 @@ Vec VDC (Scalar VDC DDC (head lhs))
 * Else it's a Tuple, e.g.
 Tuple [Vec VT (Scalar VDC DFloat "u_1"),Vec VT (Scalar VDC DFloat "v_1"),Vec VT (Scalar VDC DFloat "w_1")]
 
-and we need to define VE and DType. 
+and we need to define VE and DType.
 
 - VE is based on the name: if it is not in the bindings, it is VT
-- DType is based on the return value of the function on the RHS. We get that one using `everything` 
-matching on Function. 
+- DType is based on the return value of the function on the RHS. We get that one using `everything`
+matching on Function.
 
 so, for every vec in vecs:
 - if vec is in the bindings, use the ve from the binding, else put the var in the bindings
@@ -412,8 +418,8 @@ find_vecs_info (Tuple vecs,rhsExpr) state =
         retValExprs' = update_missing_info_rhs state retValExprs
         dts = get_types retValExprs'
         vecs' = map (\(Vec ve (Scalar vdc DDC vn), dt) ->  Vec ve (Scalar vdc dt vn)) (zip vecs dts)
-        -- now we look up vn and 
-        -- if it is not in state, we need to update state with a Vec VT 
+        -- now we look up vn and
+        -- if it is not in state, we need to update state with a Vec VT
         -- else we take the VE
         -- as this is over a list, the state update is a fold
         (state',vecs'') = foldl' (\(s_,vs_) vec_@(Vec ve_ (Scalar vdc_ dt_ vn_)) -> case Map.lookup vn_ (variables state)  of
